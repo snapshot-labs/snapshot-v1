@@ -67,4 +67,4 @@ By default your instance will connect to the hub at `https://testnet.hub.snapsho
 
 ## License
 
-Snapshot is open-sourced software licensed under the © [MIT license](LICENSE).
+Snapshot is open-sourced software licensed under the © [MIT license](LICENSE)..
