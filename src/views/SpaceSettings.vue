@@ -303,10 +303,10 @@ onBeforeRouteLeave(async () => {
               context="settings"
               :is-view-only="isViewOnly"
             />
-            <SettingsDomainBlock
+            <!-- <SettingsDomainBlock
               context="settings"
               :is-view-only="isViewOnly"
-            />
+            /> -->
             <SettingsDangerzoneBlock
               :is-controller="isSpaceController"
               :ens-owner="ensOwner"
