@@ -24,7 +24,7 @@ function handleSubmit() {
 
     <SettingsVotingBlock context="setup" />
 
-    <SettingsDomainBlock context="setup" />
+    <!-- <SettingsDomainBlock context="setup" /> -->
 
     <SettingsSubSpacesBlock context="setup" />
 
