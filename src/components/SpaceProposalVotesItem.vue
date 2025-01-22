@@ -107,7 +107,7 @@ const balanceFormatted = computed(() => {
                 </div>
               </BaseBlock>
               <BaseLink
-                :link="`https://signator.io/view?ipfs=${vote.ipfs}`"
+                :link="`https://signator.io/ipfs/${vote.ipfs}`"
                 class="mb-2 block"
                 hide-external-icon
               >
