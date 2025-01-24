@@ -683,7 +683,17 @@
       "service": "Service",
       "media": "Media",
       "creator": "Creator",
-      "collector": "Collector"
+      "collector": "Collector",
+      "ai-agent": "AI agent",
+      "gaming": "Gaming",
+      "wallet": "Wallet",
+      "music": "Music",
+      "layer-2": "Layer 2",
+      "defai": "DeFi AI",
+      "defi": "DeFi",
+      "rwa": "RWA",
+      "depin": "DePin",
+      "meme": "Meme"
     }
   },
   "voting": {
