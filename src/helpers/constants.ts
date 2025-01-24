@@ -36,7 +36,17 @@ export const SPACE_CATEGORIES = [
   'service',
   'media',
   'creator',
-  'collector'
+  'collector',
+  'ai-agent',
+  'gaming',
+  'wallet',
+  'music',
+  'layer-2',
+  'defai',
+  'defi',
+  'rwa',
+  'depin',
+  'meme'
 ];
 
 export const ERC20ABI = [
