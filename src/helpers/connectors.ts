@@ -44,9 +44,8 @@ const connectors = {
     network: '1',
     options: {
       appName: 'Snapshot',
-      darkMode: false,
-      chainId: 1,
-      ethJsonrpcUrl: `${import.meta.env.VITE_BROVIDER_URL}/1`
+      appChainIds: [1],
+      appLogoUrl: 'https://snapshot.box/favicon.svg'
     },
     icon: 'ipfs://QmbJKEaeMz6qR3DmJSTxtYtrZeQPptVfnnYK72QBsvAw5q',
     hidden: false
