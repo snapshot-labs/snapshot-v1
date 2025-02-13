@@ -126,3 +126,9 @@ export const BOOST_ENABLED_VOTING_TYPES = [
   'single-choice',
   'ranked-choice'
 ];
+
+export const STRATEGIES_LIMITS = {
+  default: 8,
+  verified: 8,
+  turbo: 10
+};
