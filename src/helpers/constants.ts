@@ -132,3 +132,8 @@ export const STRATEGIES_LIMITS = {
   verified: 8,
   turbo: 10
 };
+
+export const PROPOSAL_BODY_LIMITS = {
+  default: 10000,
+  turbo: 40000
+};
