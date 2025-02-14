@@ -80,7 +80,7 @@ export default class Plugin {
         }
       }
     });
-    // If the fetch fails: the event doesn't exists for this poap yet
+    // If the fetch fails: the event doesn't exist for this poap yet
     if (!eventResponse.ok) {
       return { currentState: 'NO_OAT' };
     }
