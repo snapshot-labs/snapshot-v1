@@ -239,6 +239,8 @@ function getFormattedForm() {
     });
   clonedForm.start = sanitizedDateStart;
   clonedForm.end = sanitizedDateEnd;
+  clonedForm.privacy =
+    props.space.voting.privacy === 'any' ? '' : props.space.voting.privacy;
   return clonedForm;
 }
 
