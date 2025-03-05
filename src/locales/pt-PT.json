@@ -343,7 +343,7 @@
     },
     "network": {
       "label": "Network",
-      "information": "The defaul network used for this space. Networks can also be specified in individual strategies"
+      "information": "The default network used for this space. Networks can also be specified in individual strategies"
     },
     "symbol": {
       "label": "Symbol",
