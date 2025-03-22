@@ -11,8 +11,8 @@ const connectors = {
       projectId: 'e6454bd61aba40b786e866a69bd4c5c6',
       chains: [],
       optionalChains: [
-        1, 4, 5, 10, 42, 56, 100, 137, 146, 246, 250, 4002, 1088, 42161, 73799, 33139,
-        11155111
+        1, 4, 5, 10, 42, 56, 100, 137, 146, 246, 250, 4002, 1088, 42161, 73799,
+        33139, 11155111
       ],
       optionalMethods: [
         'eth_sendTransaction',
