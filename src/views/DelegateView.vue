@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { debouncedWatch } from '@vueuse/core';
-import { isAddress } from '@ethersproject/address';
+import { getAddress, isAddress } from '@ethersproject/address';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 import {
   getScores,
@@ -125,7 +125,9 @@ const delegationStrategies = [
   'delegation',
   'erc20-balance-of-delegation',
   'delegation-with-cap',
-  'delegation-with-overrides'
+  'delegation-with-overrides',
+  'with-delegation',
+  'erc20-balance-of-delegation-with-delegation'
 ];
 
 async function getDelegatesWithScore() {
@@ -145,9 +147,17 @@ async function getDelegatesWithScore() {
 
     const uniqueDelegators = Array.from(
       new Set(delegations.map(d => d.delegate))
-    ).map(delegate => {
-      return delegations.find(a => a.delegate === delegate);
-    });
+    )
+      .map(delegate => {
+        return delegations.find(a => a.delegate === delegate);
+      })
+      .map(delegation => {
+        return {
+          ...delegation,
+          delegate: getAddress(delegation.delegate),
+          delegator: getAddress(delegation.delegator)
+        };
+      });
 
     const delegatesAddresses = uniqueDelegators.map(d => d.delegate);
 
@@ -161,11 +171,13 @@ async function getDelegatesWithScore() {
     );
 
     uniqueDelegators.forEach(delegate => {
-      const delegationScore = scores[0];
-      Object.entries(delegationScore).forEach(([address, score]) => {
-        if (address === delegate.delegate) {
-          delegate.score = score;
-        }
+      delegate.score = 0;
+      scores.forEach(delegationScore => {
+        Object.entries(delegationScore).forEach(([address, score]) => {
+          if (address === delegate.delegate) {
+            delegate.score += score;
+          }
+        });
       });
     });
 

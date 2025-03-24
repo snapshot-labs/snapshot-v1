@@ -2,6 +2,7 @@
 import { SpaceStrategy } from '@/helpers/interfaces';
 import { clone } from '@snapshot-labs/snapshot.js/src/utils';
 import schemas from '@snapshot-labs/snapshot.js/src/schemas';
+import { STRATEGIES_LIMITS } from '@/helpers/constants';
 
 const spaceSchema = schemas.space;
 
@@ -18,7 +19,7 @@ const { form, validationErrors } = useFormSpaceSettings(props.context, {
 });
 
 const strategiesLimit = computed(
-  () => spaceSchema.properties.strategies.maxItemsWithSpaceType[props.spaceType]
+  () => STRATEGIES_LIMITS[props.spaceType || 'default']
 );
 const strategies = computed(() => form.value.strategies);
 

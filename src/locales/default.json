@@ -581,7 +581,7 @@
       "title": "Setup your space domain",
       "ensMessage": " One thing you need before you can create your own space, is an ENS domain on Ethereum mainnet.",
       "ensMessageTestnet": "You can also {link} - a Sepolia testnet playground dedicated to testing before creating your space or proposals on Snapshot",
-      "tryDemo": "try the testnet.snapshot.org",
+      "tryDemo": "try the testnet.v1.snapshot.org",
       "yourExistingSpaces": "Your existing spaces",
       "invalidEns": "This ENS name is invalid. Usually this is due the use of invalid characters during registration."
     },
@@ -683,7 +683,17 @@
       "service": "Service",
       "media": "Media",
       "creator": "Creator",
-      "collector": "Collector"
+      "collector": "Collector",
+      "ai-agent": "AI agent",
+      "gaming": "Gaming",
+      "wallet": "Wallet",
+      "music": "Music",
+      "layer-2": "Layer 2",
+      "defai": "DeFi AI",
+      "defi": "DeFi",
+      "rwa": "RWA",
+      "depin": "DePin",
+      "meme": "Meme"
     }
   },
   "voting": {

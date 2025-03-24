@@ -9,6 +9,7 @@ interface ProposalForm {
   body: string;
   discussion: string;
   choices: { key: number; text: string }[];
+  labels: string[];
   start: number;
   end: number;
   snapshot: number;
@@ -29,6 +30,7 @@ const EMPTY_PROPOSAL: ProposalForm = {
     { key: 0, text: '' },
     { key: 1, text: '' }
   ],
+  labels: [],
   start: parseInt((Date.now() / 1e3).toFixed()),
   end: 0,
   snapshot: 0,
@@ -60,6 +62,7 @@ export function useFormSpaceProposal({ spaceType = 'default' } = {}) {
     name: string;
     body: string;
     choices: { key: number; text: string }[];
+    labels: string[];
     isBodySet: boolean;
   }>(`snapshot.proposal.${route.params.key}`, clone(EMPTY_PROPOSAL_DRAFT));
 

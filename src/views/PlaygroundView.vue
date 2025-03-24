@@ -34,11 +34,13 @@ const scores = ref(null);
 const searchInput = ref('');
 const form = ref<{
   params: Record<string, any>;
+  space: string;
   network: string;
   snapshot: string;
   addresses: string[];
 }>({
   params: {},
+  space: '',
   network: '1',
   snapshot: '',
   addresses: []
@@ -67,7 +69,7 @@ const scoresWithZeroBalanceAddresses = computed(() => {
 const strategyExample = computed(() => {
   if (queryParams.query) {
     try {
-      const { params, network, snapshot, addresses } = decodeJson(
+      const { params, network, snapshot, addresses, space } = decodeJson(
         queryParams.query
       );
       return {
@@ -75,6 +77,7 @@ const strategyExample = computed(() => {
         addresses: addresses || extendedStrategy.value?.examples?.[0].addresses,
         network,
         snapshot,
+        space,
         strategy: { params }
       };
     } catch (e) {
@@ -97,7 +100,7 @@ async function loadScores() {
       params: form.value.params
     };
     scores.value = await getScores(
-      '',
+      form.value.space,
       [strategyParams],
       form.value.network,
       form.value.addresses,
@@ -155,6 +158,7 @@ watch(
   () => {
     form.value.params = strategyExample.value?.strategy.params ?? defaultParams;
     form.value.network = strategyExample.value?.network ?? '1';
+    form.value.space = strategyExample.value?.space ?? '';
     form.value.addresses = strategyExample.value?.addresses ?? [];
   },
   { immediate: true }
@@ -219,6 +223,11 @@ function handleNetworkSelect(value) {
               <BaseInput
                 v-model="form.snapshot"
                 :title="$t('snapshot')"
+                @update:model-value="handleURLUpdate"
+              />
+              <BaseInput
+                v-model="form.space"
+                title="Space"
                 @update:model-value="handleURLUpdate"
               />
             </div>

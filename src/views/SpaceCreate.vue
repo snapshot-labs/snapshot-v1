@@ -5,7 +5,7 @@ import { proposalValidation } from '@/helpers/snapshot';
 import Plugin from '@/plugins/safeSnap';
 import { getInstance } from '@snapshot-labs/lock/plugins/vue3';
 import { clone } from '@snapshot-labs/snapshot.js/src/utils';
-import proposalSchema from '@snapshot-labs/snapshot.js/src/schemas/proposal.json';
+import { PROPOSAL_BODY_LIMITS } from '@/helpers/constants';
 
 const safeSnapPlugin = new Plugin();
 
@@ -21,10 +21,7 @@ const props = defineProps<{
 
 const spaceType = computed(() => (props.space.turbo ? 'turbo' : 'default'));
 const bodyCharactersLimit = computed(
-  () =>
-    proposalSchema.definitions.Proposal.properties.body.maxLengthWithSpaceType[
-      spaceType.value
-    ]
+  () => PROPOSAL_BODY_LIMITS[spaceType.value]
 );
 
 useMeta({
@@ -242,6 +239,8 @@ function getFormattedForm() {
     });
   clonedForm.start = sanitizedDateStart;
   clonedForm.end = sanitizedDateEnd;
+  clonedForm.privacy =
+    props.space.voting.privacy === 'any' ? '' : props.space.voting.privacy;
   return clonedForm;
 }
 
@@ -298,6 +297,7 @@ function setSourceProposal(proposal) {
     body: proposal.body,
     discussion: proposal.discussion,
     choices: proposal.choices,
+    labels: proposal.labels,
     start: proposal.start,
     end: proposal.end,
     snapshot: proposal.snapshot,

@@ -2,7 +2,7 @@
 
 Created time: July 21, 2022 5:51 PM
 
-The **Galxe Plugin is designed for Snapshot.org. This will incentive communities to participate in the proposal vote by rewarding them with OATs (On-Chain Achievement Tokens). Space Admin can add this plugin into your space. After users vote, they can claim an OAT directly from the Galxe Plugin section on the proposal page.**
+The **Galxe Plugin is designed for Snapshot.org. This will incentivize communities to participate in the proposal vote by rewarding them with OATs (On-Chain Achievement Tokens). Space Admin can add this plugin into your space. After users vote, they can claim an OAT directly from the Galxe Plugin section on the proposal page.**
 
 ### 1. Preparation
 
@@ -25,9 +25,9 @@ _Specific JSON format like this, and you could use more than 1 OAT in your space
 ```javascript
 {
 	"oats": {
-		"<proposal ID 1>": "<Space Name>/campain/<Campaign ID>",
-		"<proposal ID 2>": "<Space Name>/campain/<Campaign ID>",
-		"<proposal ID 3>": "<Space Name>/campain/<Campaign ID>",
+		"<proposal ID 1>": "<Space Name>/campaign/<Campaign ID>",
+		"<proposal ID 2>": "<Space Name>/campaign/<Campaign ID>",
+		"<proposal ID 3>": "<Space Name>/campaign/<Campaign ID>",
 	}
 }
 ```

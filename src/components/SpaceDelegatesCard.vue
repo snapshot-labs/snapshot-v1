@@ -124,7 +124,7 @@ function handleDropdownAction(action: string) {
 
     <div class="mt-3 h-[48px] cursor-pointer">
       <template v-if="about">
-        <span class="line-clamp-2 text-left">
+        <span class="line-clamp-2 break-words text-left">
           {{ about }}
         </span>
       </template>

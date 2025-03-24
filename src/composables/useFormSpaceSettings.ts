@@ -16,6 +16,7 @@ const DEFAULT_DELEGATION = {
 const EMPTY_SPACE_FORM = {
   strategies: [],
   categories: [],
+  labels: [],
   treasuries: [],
   admins: [],
   moderators: [],

@@ -18,6 +18,7 @@ interface StrategyExample {
   network: string;
   addresses: string[];
   snapshot: number;
+  space?: string;
 }
 
 interface StrategySchema {

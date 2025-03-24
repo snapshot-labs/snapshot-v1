@@ -40,7 +40,9 @@ const link = computed(() => {
       break;
     }
     case 'delegate': {
-      path = `${prefix}:${route.params.key}/delegates`;
+      path = route.params.key
+        ? `${prefix}:${route.params.key}/delegates`
+        : 'explore';
       break;
     }
     case 'profileAbout': {
