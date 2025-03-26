@@ -2,7 +2,7 @@
 
 Created time: July 21, 2022 5:51 PM
 
-The **Galxe Plugin is designed for Snapshot.org. This will incentivize communities to participate in the proposal vote by rewarding them with OATs (On-Chain Achievement Tokens). Space Admin can add this plugin into your space. After users vote, they can claim an OAT directly from the Galxe Plugin section on the proposal page.**
+The **Galxe Plugin is designed for Snapshot.org. This will incentivize communities to participate in the proposal vote by rewarding them with OATs (On-Chain Achievement Tokens).A Space Admin can add this plugin to your space. After users vote, they can claim an OAT directly from the Galxe Plugin section on the proposal page.**
 
 ### 1. Preparation
 
@@ -32,7 +32,7 @@ _Specific JSON format like this, and you could use more than 1 OAT in your space
 }
 ```
 
-notice: The domain should not included in <Space Name>.
+notice: The domain should not be included in <Space Name>.
 
 #### Usually you don't need to change api part unless you know which api you are using.
 
