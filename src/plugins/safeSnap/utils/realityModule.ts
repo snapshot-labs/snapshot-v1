@@ -1,5 +1,5 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
-import { multicall } from '@snapshot-labs/snapshot.js/src/utils';
+import snapshot from '@snapshot-labs/snapshot.js';
 import { REALITY_MODULE_ABI, ORACLE_ABI } from '../constants';
 import { HashZero } from '@ethersproject/constants';
 import { BigNumber } from '@ethersproject/bignumber';
@@ -18,7 +18,7 @@ export const getProposalDetails = async (
   txHashes: string[]
 ): Promise<{ questionId: string; nextTxIndex: number | undefined }> => {
   const proposalInfo = (
-    await multicall(
+    await snapshot.utils.multicall(
       network,
       provider,
       REALITY_MODULE_ABI,
@@ -57,7 +57,7 @@ export const getModuleDetailsReality = async (
   let moduleDetails;
   try {
     // Assume module is Reality Module
-    moduleDetails = await multicall(network, provider, REALITY_MODULE_ABI, [
+    moduleDetails = await snapshot.utils.multicall(network, provider, REALITY_MODULE_ABI, [
       [moduleAddress, 'avatar'],
       [moduleAddress, 'oracle'],
       [moduleAddress, 'questionCooldown'],
@@ -67,7 +67,7 @@ export const getModuleDetailsReality = async (
   } catch (err) {
     // The Reality Module doesn't have an avatar field, causing tx to fails.
     // Assume module is Dao Module (old version)
-    moduleDetails = await multicall(network, provider, REALITY_MODULE_ABI, [
+    moduleDetails = await snapshot.utils.multicall(network, provider, REALITY_MODULE_ABI, [
       [moduleAddress, 'executor'],
       [moduleAddress, 'oracle'],
       [moduleAddress, 'questionCooldown'],
@@ -96,7 +96,7 @@ export const checkPossibleExecution = async (
 }> => {
   if (questionId) {
     try {
-      const result = await multicall(network, provider, ORACLE_ABI, [
+      const result = await snapshot.utils.multicall(network, provider, ORACLE_ABI, [
         [oracleAddress, 'resultFor', [questionId]],
         [oracleAddress, 'getFinalizeTS', [questionId]]
       ]);

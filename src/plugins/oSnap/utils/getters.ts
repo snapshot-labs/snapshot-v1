@@ -6,7 +6,7 @@ import { keccak256 } from '@ethersproject/keccak256';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { pack } from '@ethersproject/solidity';
 import { toUtf8Bytes } from '@ethersproject/strings';
-import { multicall } from '@snapshot-labs/snapshot.js/src/utils';
+import snapshot from '@snapshot-labs/snapshot.js';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
 import memoize from 'lodash/memoize';
 import detectProxyTarget from 'evm-proxy-detection';
@@ -446,7 +446,7 @@ export async function getOGModuleDetails(params: {
     [rules: string],
     [minimumBond: BigNumber],
     [challengePeriod: BigNumber]
-  ] = await multicall(network, provider, OPTIMISTIC_GOVERNOR_ABI as any, [
+  ] = await snapshot.utils.multicall(network, provider, OPTIMISTIC_GOVERNOR_ABI as any, [
     [moduleAddress, 'optimisticOracleV3'],
     [moduleAddress, 'rules'],
     [moduleAddress, 'getProposalBond'],

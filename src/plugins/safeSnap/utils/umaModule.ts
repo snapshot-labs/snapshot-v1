@@ -6,7 +6,7 @@ import { keccak256 } from '@ethersproject/keccak256';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { pack } from '@ethersproject/solidity';
 import { toUtf8Bytes, toUtf8String } from '@ethersproject/strings';
-import { multicall } from '@snapshot-labs/snapshot.js/src/utils';
+import snapshot from '@snapshot-labs/snapshot.js';
 import {
   ERC20_ABI,
   UMA_MODULE_ABI,
@@ -161,7 +161,7 @@ export const getModuleDetailsUma = async (
   transactions: any
 ) => {
   const moduleContract = new Contract(moduleAddress, UMA_MODULE_ABI, provider);
-  const moduleDetails = await multicall(network, provider, UMA_MODULE_ABI, [
+  const moduleDetails = await snapshot.utils.multicall(network, provider, UMA_MODULE_ABI, [
     [moduleAddress, 'avatar'],
     [moduleAddress, 'optimisticOracleV3'],
     [moduleAddress, 'rules'],
@@ -368,7 +368,7 @@ export const getModuleDetailsUmaGql = async (
   transactions: any
 ) => {
   const moduleContract = new Contract(moduleAddress, UMA_MODULE_ABI, provider);
-  const moduleDetails = await multicall(network, provider, UMA_MODULE_ABI, [
+  const moduleDetails = await snapshot.utils.multicall(network, provider, UMA_MODULE_ABI, [
     [moduleAddress, 'avatar'],
     [moduleAddress, 'optimisticOracleV3'],
     [moduleAddress, 'rules'],
