@@ -1,8 +1,5 @@
 import { getAddress } from '@ethersproject/address';
-import {
-  multicall,
-  subgraphRequest
-} from '@snapshot-labs/snapshot.js/src/utils';
+import snapshot from '@snapshot-labs/snapshot.js';
 
 const UNISWAP_V2_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/EYCKATKGBKLWvSfwvBjzfCBmGwYNdVkduYXVivCsLRFu',
@@ -476,7 +473,7 @@ const erc20Abi = [
  * @param method
  */
 const getTokenInfo = async (web3, tokenAddress) => {
-  return await multicall(web3._network.chainId.toString(), web3, erc20Abi, [
+  return await snapshot.utils.multicall(web3._network.chainId.toString(), web3, erc20Abi, [
     [tokenAddress, 'name'],
     [tokenAddress, 'symbol']
   ]);
@@ -507,7 +504,7 @@ export default class Plugin {
     try {
       const query = OMEN_GQL_QUERY;
       query.condition.__args.id = conditionId;
-      return await subgraphRequest(OMEN_SUBGRAPH_URL[network], query);
+      return await snapshot.utils.subgraphRequest(OMEN_SUBGRAPH_URL[network], query);
     } catch (e) {
       console.error(e);
     }

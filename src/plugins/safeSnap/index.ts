@@ -9,11 +9,7 @@ import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { keccak256 as solidityKeccak256 } from '@ethersproject/solidity';
 import { isBigNumberish } from '@ethersproject/bignumber/lib/bignumber';
 
-import {
-  call,
-  multicall,
-  sendTransaction
-} from '@snapshot-labs/snapshot.js/src/utils';
+import snapshot from '@snapshot-labs/snapshot.js';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
 import {
   SafeTransaction,
@@ -293,7 +289,7 @@ export default class Plugin {
     const account = (await web3.listAccounts())[0];
 
     const [[userBalance], [bestAnswer], [historyHash], [isFinalized]] =
-      await multicall(network, provider, ORACLE_ABI, [
+      await snapshot.utils.multicall(network, provider, ORACLE_ABI, [
         [oracleAddress, 'balanceOf', [account]],
         [oracleAddress, 'getBestAnswer', [questionId]],
         [oracleAddress, 'getHistoryHash', [questionId]],
@@ -307,12 +303,12 @@ export default class Plugin {
     };
 
     try {
-      const tokenCall = await call(provider, ORACLE_ABI, [
+      const tokenCall = await snapshot.utils.call(provider, ORACLE_ABI, [
         oracleAddress,
         'token',
         []
       ]);
-      const [[symbol], [decimals]] = await multicall(
+      const [[symbol], [decimals]] = await snapshot.utils.multicall(
         network,
         provider,
         ERC20_ABI,
@@ -508,8 +504,8 @@ export default class Plugin {
     // a RealitioERC20, otherwise the catch will handle the currency as ETH
     try {
       const account = (await web3.listAccounts())[0];
-      const token = await call(web3, ORACLE_ABI, [oracleAddress, 'token', []]);
-      const [[tokenDecimals], [allowance]] = await multicall(
+      const token = await snapshot.utils.call(web3, ORACLE_ABI, [oracleAddress, 'token', []]);
+      const [[tokenDecimals], [allowance]] = await snapshot.utils.multicall(
         network,
         web3,
         ERC20_ABI,
@@ -526,7 +522,7 @@ export default class Plugin {
       // Check if contract has allowance on user tokens,
       // if not, trigger approve method
       if (allowance.lt(bond)) {
-        const approveTx = await sendTransaction(
+        const approveTx = await snapshot.utils.sendTransaction(
           web3,
           token,
           ERC20_ABI,
@@ -550,7 +546,7 @@ export default class Plugin {
       methodName = 'submitAnswer';
     }
 
-    const tx = await sendTransaction(
+    const tx = await snapshot.utils.sendTransaction(
       web3,
       oracleAddress,
       ORACLE_ABI,
