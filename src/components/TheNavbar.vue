@@ -37,6 +37,7 @@ watch(
             class="ml-1 hidden uppercase text-[12px] sm:block mb-1"
             v-text="'testnet'"
           />
+          <Banner class="ml-3" />
         </div>
         <div :key="web3Account" class="flex space-x-2">
           <NavbarAccount />

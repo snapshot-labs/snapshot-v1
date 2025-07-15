@@ -336,7 +336,7 @@ watch(
             <span>Add delegate</span>
           </TuneButton>
           <button
-            v-if="delegates.length > 0"
+            v-if="currentDelegations.length > 0"
             class="text-red underline hover:opacity-50 text-xs bg-none"
             @click="deleteAllDelegates"
           >

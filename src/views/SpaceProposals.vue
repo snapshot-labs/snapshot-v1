@@ -194,11 +194,6 @@ watch(
           :space-id="space.id"
         />
       </div>
-
-      <h1 class="hidden lg:mb-3 lg:block">
-        {{ $t('proposals.header') }}
-      </h1>
-
       <div
         class="mb-4 flex flex-col justify-between gap-x-3 gap-y-[10px] px-[20px] sm:flex-row md:px-0"
       >

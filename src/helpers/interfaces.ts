@@ -18,6 +18,7 @@ interface StrategyExample {
   network: string;
   addresses: string[];
   snapshot: number;
+  space?: string;
 }
 
 interface StrategySchema {
@@ -189,6 +190,7 @@ export interface ExtendedSpace {
 export interface DelegatesConfig {
   delegationType: DelegationTypes;
   delegationContract: string;
+  delegationNetwork: string;
   delegationApi: string;
 }
 export interface SpaceValidation {

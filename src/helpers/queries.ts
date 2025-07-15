@@ -46,6 +46,7 @@ export const PROPOSAL_QUERY = gql`
       body
       discussion
       choices
+      labels
       start
       end
       snapshot
@@ -460,6 +461,12 @@ export const SPACE_QUERY = gql`
       moderators
       members
       categories
+      labels {
+        id
+        name
+        description
+        color
+      }
       plugins
       followersCount
       template
@@ -515,6 +522,7 @@ export const SPACE_QUERY = gql`
       delegationPortal {
         delegationType
         delegationContract
+        delegationNetwork
         delegationApi
       }
       treasuries {
@@ -526,6 +534,18 @@ export const SPACE_QUERY = gql`
         enabled
         bribeEnabled
       }
+    }
+  }
+`;
+
+export const LEADERBOARD_QUERY = gql`
+  query Leaderboard($space: String!, $user_in: [String]) {
+    leaderboards(where: { space: $space, user_in: $user_in }) {
+      space
+      user
+      proposalsCount
+      votesCount
+      lastVote
     }
   }
 `;

@@ -22,9 +22,7 @@ export function useStrategies() {
   });
 
   const filterStrategies = (q = '') =>
-    strategies.value
-      .filter(s => s.id.toLowerCase().includes(q.toLowerCase()))
-      .sort((a, b) => b.spacesCount - a.spacesCount);
+    strategies.value.filter(s => s.id.toLowerCase().includes(q.toLowerCase()));
 
   const { apolloQuery } = useApolloQuery();
 

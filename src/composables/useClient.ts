@@ -52,9 +52,11 @@ export function useClient() {
         body: payload.body,
         discussion: payload.discussion,
         choices: payload.choices,
+        labels: [],
         start: payload.start,
         end: payload.end,
         snapshot: payload.snapshot,
+        privacy: payload.privacy,
         plugins: JSON.stringify(plugins),
         app: DEFINED_APP
       });
@@ -67,6 +69,8 @@ export function useClient() {
         body: payload.body,
         discussion: payload.discussion,
         choices: payload.choices,
+        labels: payload.labels,
+        privacy: payload.privacy,
         plugins: JSON.stringify(plugins)
       });
     } else if (type === 'vote') {

@@ -7,10 +7,6 @@ const socials = [
   {
     icon: 'discord',
     link: 'https://discord.snapshot.org/'
-  },
-  {
-    icon: 'youtube',
-    link: `https://www.youtube.com/channel/UCKiOLUMQNj77m_zhQnfdzsg`
   }
 ];
 </script>
@@ -21,10 +17,7 @@ const socials = [
   >
     <span v-for="social in socials" :key="social.icon">
       <BaseLink :link="social.link" hide-external-icon>
-        <FooterSocialsItem v-if="social.icon === 'youtube'">
-          <i-s-youtube class="text-[25px]" />
-        </FooterSocialsItem>
-        <FooterSocialsItem v-else-if="social.icon === 'x'">
+        <FooterSocialsItem v-if="social.icon === 'x'">
           <i-s-x class="text-[23px]" />
         </FooterSocialsItem>
         <FooterSocialsItem v-else-if="social.icon === 'discord'">

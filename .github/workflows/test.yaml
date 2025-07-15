@@ -1,4 +1,5 @@
 name: Tests
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-20.04

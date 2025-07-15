@@ -11,10 +11,15 @@ const connectors = {
       projectId: 'e6454bd61aba40b786e866a69bd4c5c6',
       chains: [],
       optionalChains: [
-        1, 4, 5, 10, 42, 56, 100, 137, 246, 1088, 42161, 73799, 11155111
+        1, 4, 5, 10, 42, 56, 100, 137, 146, 246, 250, 4002, 1088, 42161, 73799,
+        33139, 11155111
       ],
-      methods: ['eth_sendTransaction', 'personal_sign'],
-      optionalMethods: ['eth_accounts', 'eth_signTypedData_v4'],
+      optionalMethods: [
+        'eth_sendTransaction',
+        'personal_sign',
+        'eth_accounts',
+        'eth_signTypedData_v4'
+      ],
       rpcMap: {
         '1': `${import.meta.env.VITE_BROVIDER_URL}/1`,
         '4': `${import.meta.env.VITE_BROVIDER_URL}/4`,
@@ -39,9 +44,8 @@ const connectors = {
     network: '1',
     options: {
       appName: 'Snapshot',
-      darkMode: false,
-      chainId: 1,
-      ethJsonrpcUrl: `${import.meta.env.VITE_BROVIDER_URL}/1`
+      appChainIds: [1],
+      appLogoUrl: 'https://snapshot.box/favicon.svg'
     },
     icon: 'ipfs://QmbJKEaeMz6qR3DmJSTxtYtrZeQPptVfnnYK72QBsvAw5q',
     hidden: false

@@ -13,14 +13,20 @@ export const SNAPSHOT_BREAKPOINTS = {
 
 export const KNOWN_HOSTS = [
   'app.safe.global',
+  'horizen-eon.safe.onchainden.com',
   'pilot.gnosisguild.org',
   'metissafe.tech',
   'multisig.mantle.xyz',
   'wallet.ambire.com',
   'multisig.moonbeam.network',
   'worldassociation.org',
-  'safe.mainnet.frax.com'
+  'safe.mainnet.frax.com',
+  'safe.fantom.network',
+  'safe.apechain.com'
 ];
+
+// All subdomains of these domains are allowed
+export const KNOWN_DOMAINS = ['blockscout.com'];
 
 export const SPACE_CATEGORIES = [
   'protocol',
@@ -30,7 +36,17 @@ export const SPACE_CATEGORIES = [
   'service',
   'media',
   'creator',
-  'collector'
+  'collector',
+  'ai-agent',
+  'gaming',
+  'wallet',
+  'music',
+  'layer-2',
+  'defai',
+  'defi',
+  'rwa',
+  'depin',
+  'meme'
 ];
 
 export const ERC20ABI = [
@@ -110,3 +126,14 @@ export const BOOST_ENABLED_VOTING_TYPES = [
   'single-choice',
   'ranked-choice'
 ];
+
+export const STRATEGIES_LIMITS = {
+  default: 8,
+  verified: 8,
+  turbo: 10
+};
+
+export const PROPOSAL_BODY_LIMITS = {
+  default: 10000,
+  turbo: 40000
+};

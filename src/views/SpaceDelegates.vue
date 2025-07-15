@@ -23,14 +23,14 @@ const {
   hasDelegatesLoadFailed,
   hasDelegationPortal
 } = useDelegates(props.space);
-const { profiles } = useProfiles();
+const { profiles, loadProfiles } = useProfiles();
 const { modalAccountOpen } = useModal();
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
 const { isFollowing } = useFollowSpace(props.space.id);
 const { web3Account } = useWeb3();
-const { getStatement } = useStatement();
+const { getStatement, loadStatements } = useStatement();
 
 const searchInput = ref((route.query.search as string) || '');
 const searchInputDebounced = refDebounced(searchInput, 300);
@@ -130,12 +130,18 @@ useInfiniteScroll(
   { distance: 500 }
 );
 
-watch(searchInputDebounced, () => {
-  loadDelegate(searchInput.value);
+watch(searchInputDebounced, async () => {
+  await loadDelegate(searchInput.value);
 });
 
 watch(matchFilter, () => {
   loadDelegates(matchFilter.value);
+});
+
+watch(delegates, delegates => {
+  const ids = delegates.map(d => d.id);
+  loadStatements(props.space.id, ids);
+  loadProfiles(ids);
 });
 
 onMounted(() => {

@@ -11,7 +11,7 @@ const DEFAULT_TOKEN = {
   logo: '',
   standard: 'ERC-20',
   symbol: '',
-  decimals: null
+  decimals: '18'
 };
 
 const emit = defineEmits(['next']);
@@ -93,9 +93,15 @@ async function getTokenInfo() {
       token.value.name = tokenInfo[0];
       token.value.symbol = tokenInfo[1];
       token.value.decimals = tokenInfo[2];
-    } catch {
+    } catch (e) {
+      console.log(e);
       tokenError.value = t('setup.strategy.tokenVoting.tokenNotFound');
-      token.value = clone(DEFAULT_TOKEN);
+      if (
+        token.value.standard === 'ERC-721' ||
+        token.value.standard === 'ERC-1155'
+      ) {
+        token.value.decimals = '0';
+      }
     } finally {
       isTokenLoading.value = false;
     }
@@ -130,9 +136,46 @@ watch(
               v-model.trim="contract"
               title="Token contract"
               placeholder="Enter address"
-              :error="{ message: !token.name ? tokenError : '', push: true }"
+              :error="{
+                message:
+                  tokenError !== $t('setup.strategy.tokenVoting.tokenNotFound')
+                    ? tokenError
+                    : '',
+                push: true
+              }"
               :loading="isTokenLoading"
               focus-on-mount
+            />
+          </div>
+          <div>
+            <BaseInput
+              v-if="
+                !isTokenLoading &&
+                tokenError === $t('setup.strategy.tokenVoting.tokenNotFound')
+              "
+              v-model.trim="token.symbol"
+              title="Symbol"
+              placeholder="Enter Symbol"
+              :error="{
+                message: !token.symbol ? 'Symbol is required' : '',
+                push: true
+              }"
+              focus-on-mount
+            />
+          </div>
+          <div>
+            <BaseInput
+              v-if="
+                !isTokenLoading &&
+                tokenError === $t('setup.strategy.tokenVoting.tokenNotFound')
+              "
+              v-model.trim="token.decimals"
+              title="Decimals"
+              placeholder="Enter Decimals"
+              :error="{
+                message: !token.decimals ? 'Decimals is required' : '',
+                push: true
+              }"
             />
           </div>
         </div>

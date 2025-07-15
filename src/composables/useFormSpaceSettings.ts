@@ -10,11 +10,13 @@ const DEFAULT_VOTE_VALIDATION = { name: 'any', params: {} };
 const DEFAULT_DELEGATION = {
   delegationType: 'compound-governor',
   delegationContract: '',
+  delegationNetwork: '1',
   delegationApi: ''
 };
 const EMPTY_SPACE_FORM = {
   strategies: [],
   categories: [],
+  labels: [],
   treasuries: [],
   admins: [],
   moderators: [],

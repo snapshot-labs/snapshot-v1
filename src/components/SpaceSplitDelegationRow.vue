@@ -24,7 +24,12 @@ const definition = {
     }
   },
   required: ['to', 'weight'],
-  additionalProperties: false
+  additionalProperties: false,
+  errorMessage: {
+    properties: {
+      to: 'Must be a valid checksum address'
+    }
+  }
 };
 
 const props = defineProps<{

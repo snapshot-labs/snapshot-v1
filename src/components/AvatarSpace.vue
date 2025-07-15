@@ -13,6 +13,8 @@ const props = withDefaults(
   }
 );
 
+const { env } = useApp();
+
 const avatarHash = computed(() => {
   if (!props.space?.avatar) return '';
   const hash = sha256(props.space.avatar).slice(0, 16);
@@ -24,8 +26,8 @@ const avatarHash = computed(() => {
   <BaseAvatar
     :preview-file="previewFile"
     :size="size"
-    :src="`https://cdn.stamp.fyi/space/${space.id}?s=${
-      Number(size) * 2
-    }${avatarHash}`"
+    :src="`https://cdn.stamp.fyi/space/${env === 'demo' ? 's-tn' : 's'}:${
+      space.id
+    }?s=${Number(size) * 2}${avatarHash}`"
   />
 </template>

@@ -4,6 +4,7 @@ import { useConfirmDialog } from '@vueuse/core';
 import { clone } from '@snapshot-labs/snapshot.js/src/utils';
 import { DelegatingTo } from '../helpers/delegationV2/types';
 import { DelegationTypes } from '@/helpers/delegationV2';
+import { getAddress } from '@ethersproject/address';
 
 const INITIAL_STATEMENT = {
   about: '',
@@ -67,7 +68,7 @@ const showUndelegate = computed(() => {
 });
 
 const delegateStats = computed(() => {
-  return delegatesStats.value?.[address.value];
+  return delegatesStats.value?.[getAddress(address.value)];
 });
 
 const delegatorItems = computed(() => {
@@ -88,12 +89,12 @@ const delegatorItems = computed(() => {
     },
     {
       label: 'Proposals',
-      value: formatCompactNumber(delegateStats.value?.proposals.length || 0),
+      value: formatCompactNumber(delegateStats.value?.proposals || 0),
       tooltip: null
     },
     {
       label: 'Votes',
-      value: formatCompactNumber(delegateStats.value?.votes.length || 0),
+      value: formatCompactNumber(delegateStats.value?.votes || 0),
       tooltip: null
     }
   ];

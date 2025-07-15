@@ -166,7 +166,7 @@ defineEmits<{
                 </template>
                 <template #info>
                   <span
-                    class="hidden text-xs text-skin-text group-focus-within:block"
+                    class="hidden text-xs text-skin-text whitespace-nowrap group-focus-within:block"
                   >
                     {{ `${element.text.length}/32` }}
                   </span>

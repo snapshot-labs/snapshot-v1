@@ -1,25 +1,20 @@
+import { LEADERBOARD_QUERY } from '@/helpers/queries';
 import { getInstance } from '@snapshot-labs/lock/plugins/vue3';
-import {
-  DelegateWithPercent,
-  DelegatesVote,
-  DelegatesProposal,
-  ExtendedSpace
-} from '@/helpers/interfaces';
+import { getAddress } from '@ethersproject/address';
+import { DelegateWithPercent, ExtendedSpace } from '@/helpers/interfaces';
 import {
   DelegationTypes,
   setupDelegation as getDelegationAdapter
 } from '@/helpers/delegationV2';
 
-type DelegatesStats = Record<
-  string,
-  { votes: DelegatesVote[]; proposals: DelegatesProposal[] }
->;
+type DelegatesStats = Record<string, { votes: number; proposals: number }>;
 
 const DELEGATES_LIMIT = 18;
 
 export function useDelegates(space: ExtendedSpace) {
   const auth = getInstance();
   const { resolveName } = useResolveName();
+  const { apolloQuery } = useApolloQuery();
 
   const { reader, writer } = getDelegationAdapter(space, auth);
 
@@ -54,6 +49,7 @@ export function useDelegates(space: ExtendedSpace) {
     try {
       const response = await fetchDelegateBatch(orderBy);
       delegates.value = response;
+      loadStats(response.map(d => d.id));
       hasMoreDelegates.value = response.length === DELEGATES_LIMIT;
     } catch (e) {
       console.error(e);
@@ -73,6 +69,7 @@ export function useDelegates(space: ExtendedSpace) {
         orderBy,
         delegates.value.length
       );
+      loadStats(response.map(d => d.id));
       delegates.value = [...delegates.value, ...response];
       hasMoreDelegates.value = response.length === DELEGATES_LIMIT;
     } catch (e) {
@@ -92,7 +89,8 @@ export function useDelegates(space: ExtendedSpace) {
     try {
       const resolvedAddress = await resolveName(addressOrEns);
       if (!resolvedAddress) return;
-      const response = await reader.getDelegate(resolvedAddress);
+      const response = await reader.getDelegate(getAddress(resolvedAddress));
+      loadStats([response.id]);
       delegate.value = response;
     } catch (e) {
       console.error(e);
@@ -138,6 +136,26 @@ export function useDelegates(space: ExtendedSpace) {
     } finally {
       isLoadingDelegatingTo.value = false;
     }
+  }
+
+  async function loadStats(addresses: string[]) {
+    const leaderboards = await apolloQuery(
+      {
+        query: LEADERBOARD_QUERY,
+        variables: {
+          space: space.id,
+          user_in: addresses
+        }
+      },
+      'leaderboards'
+    );
+
+    leaderboards.forEach(leaderboard => {
+      delegatesStats.value[leaderboard.user] = {
+        votes: leaderboard.votesCount,
+        proposals: leaderboard.proposalsCount
+      };
+    });
   }
 
   return {
