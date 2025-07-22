@@ -192,7 +192,7 @@ export default class Plugin {
       transactions
     );
 
-    const approveTx = await sendTransaction(
+    const approveTx = await snapshot.utils.sendTransaction(
       web3,
       moduleDetails.collateral,
       ERC20_ABI,
@@ -243,7 +243,7 @@ export default class Plugin {
     proposalId: string,
     txHashes: string[]
   ) {
-    const tx = await sendTransaction(
+    const tx = await snapshot.utils.sendTransaction(
       web3,
       moduleAddress,
       REALITY_MODULE_ABI,
@@ -262,7 +262,7 @@ export default class Plugin {
     transactions: any
   ) {
     const explanationBytes = toUtf8Bytes(explanation);
-    const tx = await sendTransaction(
+    const tx = await snapshot.utils.sendTransaction(
       web3,
       moduleAddress,
       UMA_MODULE_ABI,
@@ -389,14 +389,14 @@ export default class Plugin {
     questionId: string,
     claimParams: [string[], string[], number[], string[]]
   ) {
-    const currentHistoryHash = await call(web3, ORACLE_ABI, [
+    const currentHistoryHash = await snapshot.utils.call(web3, ORACLE_ABI, [
       oracleAddress,
       'getHistoryHash',
       [questionId]
     ]);
 
     if (BigNumber.from(currentHistoryHash).eq(0)) {
-      const withdrawTx = await sendTransaction(
+      const withdrawTx = await snapshot.utils.sendTransaction(
         web3,
         oracleAddress,
         ORACLE_ABI,
@@ -409,7 +409,7 @@ export default class Plugin {
       return;
     }
 
-    const tx = await sendTransaction(
+    const tx = await snapshot.utils.sendTransaction(
       web3,
       oracleAddress,
       ORACLE_ABI,
@@ -432,7 +432,7 @@ export default class Plugin {
     moduleTx: SafeTransaction,
     transactionIndex: number
   ) {
-    const tx = await sendTransaction(
+    const tx = await snapshot.utils.sendTransaction(
       web3,
       moduleAddress,
       REALITY_MODULE_ABI,
@@ -457,7 +457,7 @@ export default class Plugin {
     moduleAddress: string,
     transactions: any
   ) {
-    const tx = await sendTransaction(
+    const tx = await snapshot.utils.sendTransaction(
       web3,
       moduleAddress,
       UMA_MODULE_ABI,
@@ -477,7 +477,7 @@ export default class Plugin {
     minimumBondInDaoModule: string,
     answer: '1' | '0'
   ) {
-    const currentBond = await call(web3, ORACLE_ABI, [
+    const currentBond = await snapshot.utils.call(web3, ORACLE_ABI, [
       oracleAddress,
       'getBond',
       [questionId]
@@ -504,7 +504,11 @@ export default class Plugin {
     // a RealitioERC20, otherwise the catch will handle the currency as ETH
     try {
       const account = (await web3.listAccounts())[0];
-      const token = await snapshot.utils.call(web3, ORACLE_ABI, [oracleAddress, 'token', []]);
+      const token = await snapshot.utils.call(web3, ORACLE_ABI, [
+        oracleAddress,
+        'token',
+        []
+      ]);
       const [[tokenDecimals], [allowance]] = await snapshot.utils.multicall(
         network,
         web3,
