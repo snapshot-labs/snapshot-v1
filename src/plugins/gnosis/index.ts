@@ -3,12 +3,14 @@ import snapshot from '@snapshot-labs/snapshot.js';
 
 const UNISWAP_V2_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/EYCKATKGBKLWvSfwvBjzfCBmGwYNdVkduYXVivCsLRFu',
-  '100': 'https://subgrapher.snapshot.org/subgraph/arbitrum/F5u74NSaLF92s1qUSacQU4fmWizmK9yqDhXAq6RPtgky',
+  '100':
+    'https://subgrapher.snapshot.org/subgraph/arbitrum/F5u74NSaLF92s1qUSacQU4fmWizmK9yqDhXAq6RPtgky'
 };
 
 const OMEN_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/7JbjEfSTme3LioqJ7SJZ9Y1GhSD55X98Btd8fg7iYUPT',
-  '100': 'https://subgrapher.snapshot.org/subgraph/arbitrum/9fUVQpFwzpdWS9bq5WkAnmKbNNcoBwatMR4yZq81pbbz'
+  '100':
+    'https://subgrapher.snapshot.org/subgraph/arbitrum/9fUVQpFwzpdWS9bq5WkAnmKbNNcoBwatMR4yZq81pbbz'
 };
 
 const WETH_ADDRESS = {
@@ -473,10 +475,15 @@ const erc20Abi = [
  * @param method
  */
 const getTokenInfo = async (web3, tokenAddress) => {
-  return await snapshot.utils.multicall(web3._network.chainId.toString(), web3, erc20Abi, [
-    [tokenAddress, 'name'],
-    [tokenAddress, 'symbol']
-  ]);
+  return await snapshot.utils.multicall(
+    web3._network.chainId.toString(),
+    web3,
+    erc20Abi,
+    [
+      [tokenAddress, 'name'],
+      [tokenAddress, 'symbol']
+    ]
+  );
 };
 
 export default class Plugin {
@@ -495,7 +502,7 @@ export default class Plugin {
         name: tokenInfo[0][0],
         symbol: tokenInfo[1][0]
       };
-    } catch (e) {
+    } catch (e: any) {
       throw new Error(e);
     }
   }
@@ -504,7 +511,10 @@ export default class Plugin {
     try {
       const query = OMEN_GQL_QUERY;
       query.condition.__args.id = conditionId;
-      return await snapshot.utils.subgraphRequest(OMEN_SUBGRAPH_URL[network], query);
+      return await snapshot.utils.subgraphRequest(
+        OMEN_SUBGRAPH_URL[network],
+        query
+      );
     } catch (e) {
       console.error(e);
     }
@@ -529,7 +539,7 @@ export default class Plugin {
         token0: token1.toLowerCase(),
         token1: WETH_ADDRESS[network]
       };
-      const result = await subgraphRequest(
+      const result = await snapshot.utils.subgraphRequest(
         UNISWAP_V2_SUBGRAPH_URL[network],
         query
       );
