@@ -66,7 +66,7 @@ onMounted(async () => {
             <b>{{ $t('version') }}</b>
             <BaseLink
               class="float-right"
-              :link="`https://github.com/snapshot-labs/snapshot-strategies/tree/master/src/strategies/${strategy.id}`"
+              :link="`https://github.com/snapshot-labs/score-api/tree/master/src/strategies/strategies/${strategy.id}`"
             >
               {{ strategy.version }}
             </BaseLink>
