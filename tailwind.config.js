@@ -1,6 +1,6 @@
 import formsPlugin from '@tailwindcss/forms';
 
-module.exports = {
+export default {
   content: ['./index.html', './src/**/*.{js,ts,vue}'],
   theme: {
     extend: {
