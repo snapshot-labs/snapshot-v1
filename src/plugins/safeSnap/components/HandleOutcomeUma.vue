@@ -234,8 +234,9 @@ function didProposalPass(proposal: Proposal) {
       return [choice.toLowerCase(), proposal.scores[i] ?? 0];
     })
   );
-  // ensure the for votes pass quorum and that there are more for votes than against
-  return votes['for'] > proposal.scores_total / 2;
+  // ensure there are more "for" votes than "against" votes
+  // abstain votes should not count against the proposal
+  return votes['for'] > (votes['against'] ?? 0);
 }
 
 function wasProposalFinalized(proposal: Proposal) {
