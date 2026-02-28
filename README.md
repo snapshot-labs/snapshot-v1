@@ -68,3 +68,5 @@ By default your instance will connect to the hub at `https://testnet.hub.snapsho
 ## License
 
 Snapshot is open-sourced software licensed under the © [MIT license](LICENSE).
+<br>## Welcome to Off-Chain Voting<br>Snapshot's gasless voting powers DAOs—new contributors, start with the Space creation tutorial for your first proposal. Tip: Use ENS for authentication! <br>
+
