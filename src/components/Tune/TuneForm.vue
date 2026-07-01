@@ -4,6 +4,7 @@ import FormString from './_Form/FormString.vue';
 import FormNumber from './_Form/FormNumber.vue';
 import FormBoolean from './_Form/FormBoolean.vue';
 import FormArray from './_Form/FormArray.vue';
+import TuneTextareaJson from './TuneTextareaJson.vue';
 
 const props = defineProps<{
   modelValue: Record<string, any>;
@@ -18,10 +19,10 @@ const input = computed({
   set: value => emit('update:modelValue', value)
 });
 
-const getComponent = (type: string) => {
-  switch (type) {
+const getComponent = (definition: Record<string, any>) => {
+  switch (definition.type) {
     case 'object':
-      return TuneForm;
+      return definition.properties ? TuneForm : TuneTextareaJson;
     case 'string':
       return FormString;
     case 'number':
@@ -51,7 +52,7 @@ defineExpose({
 <template>
   <div class="space-y-2">
     <component
-      :is="getComponent(property.type)"
+      :is="getComponent(property)"
       v-for="(property, key) in definition.properties as Record<string, any>"
       ref="componentRefs"
       :key="key"
