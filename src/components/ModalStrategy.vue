@@ -148,9 +148,9 @@ watch(open, () => {
     <template v-if="input.name" #footer>
       <ButtonPlayground
         big
-        :name="strategy.name"
-        :network="strategy.network"
-        :params="strategy.params"
+        :name="input.name"
+        :network="input.network"
+        :params="input.params"
       />
       <TuneButton
         :disabled="loading"
