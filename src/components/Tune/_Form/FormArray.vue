@@ -34,9 +34,18 @@ const getComponent = (type: string) => {
   }
 };
 
+// Build a fresh array item. Object items must start as an object, otherwise
+// TuneForm renders their fields against a throwaway object and edits are never
+// written back (the item stays undefined/'' and fails "Must be object").
+function createItem() {
+  const items = props.definition?.items;
+  if (items?.default !== undefined) return cloneDeep(items.default);
+  return items?.type === 'object' ? {} : '';
+}
+
 function addItem() {
   const array = cloneDeep(input.value);
-  array.push(cloneDeep(props.definition?.items?.default) || '');
+  array.push(createItem());
   input.value = array;
 }
 
@@ -57,8 +66,7 @@ defineExpose({
 
 onMounted(() => {
   if (props.definition?.title === 'Strategies') return;
-  if (!props.modelValue)
-    input.value = cloneDeep([props.definition?.items?.default] || []);
+  if (!props.modelValue) input.value = [createItem()];
 });
 </script>
 
