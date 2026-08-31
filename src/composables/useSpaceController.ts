@@ -78,17 +78,27 @@ export function useSpaceController() {
   }
 
   async function loadEnsOwner() {
-    ensOwner.value = await getEnsOwner(ensAddress.value, defaultNetwork, {
-      broviderUrl
-    });
+    try {
+      ensOwner.value = await getEnsOwner(ensAddress.value, defaultNetwork, {
+        broviderUrl
+      });
+    } catch (e) {
+      notify(['red', t('notify.somethingWentWrong')]);
+      console.log(e);
+    }
   }
 
   async function loadSpaceController() {
-    spaceController.value = await getSpaceController(
-      ensAddress.value,
-      defaultNetwork,
-      { broviderUrl }
-    );
+    try {
+      spaceController.value = await getSpaceController(
+        ensAddress.value,
+        defaultNetwork,
+        { broviderUrl }
+      );
+    } catch (e) {
+      notify(['red', t('notify.somethingWentWrong')]);
+      console.log(e);
+    }
   }
 
   return {
