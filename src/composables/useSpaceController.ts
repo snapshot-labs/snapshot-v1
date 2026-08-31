@@ -78,6 +78,7 @@ export function useSpaceController() {
   }
 
   async function loadEnsOwner() {
+    ensOwner.value = null;
     try {
       ensOwner.value = await getEnsOwner(ensAddress.value, defaultNetwork, {
         broviderUrl
@@ -89,6 +90,7 @@ export function useSpaceController() {
   }
 
   async function loadSpaceController() {
+    spaceController.value = null;
     try {
       spaceController.value = await getSpaceController(
         ensAddress.value,
