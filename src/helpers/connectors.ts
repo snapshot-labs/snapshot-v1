@@ -1,3 +1,12 @@
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
+import {
+  createProviderUrl,
+  normalizeOptions
+} from '@snapshot-labs/snapshot.js/src/utils/provider';
+
+const rpcUrl = (chainId: number) =>
+  createProviderUrl(String(chainId), normalizeOptions(PROVIDER_OPTIONS));
+
 const connectors = {
   injected: {
     id: 'injected',
@@ -20,20 +29,12 @@ const connectors = {
         'eth_accounts',
         'eth_signTypedData_v4'
       ],
-      rpcMap: {
-        '1': `${import.meta.env.VITE_BROVIDER_URL}/1`,
-        '4': `${import.meta.env.VITE_BROVIDER_URL}/4`,
-        '5': `${import.meta.env.VITE_BROVIDER_URL}/5`,
-        '10': `${import.meta.env.VITE_BROVIDER_URL}/10`,
-        '42': `${import.meta.env.VITE_BROVIDER_URL}/42`,
-        '56': `${import.meta.env.VITE_BROVIDER_URL}/56`,
-        '100': `${import.meta.env.VITE_BROVIDER_URL}/100`,
-        '137': `${import.meta.env.VITE_BROVIDER_URL}/137`,
-        '246': `${import.meta.env.VITE_BROVIDER_URL}/246`,
-        '42161': `${import.meta.env.VITE_BROVIDER_URL}/42161`,
-        '73799': `${import.meta.env.VITE_BROVIDER_URL}/73799`,
-        '11155111': `${import.meta.env.VITE_BROVIDER_URL}/11155111`
-      },
+      rpcMap: Object.fromEntries(
+        [1, 4, 5, 10, 42, 56, 100, 137, 246, 42161, 73799, 11155111].map(id => [
+          id,
+          rpcUrl(id)
+        ])
+      ),
       showQrModal: true
     },
     icon: 'ipfs://QmZRVqHpgRemw13aoovP2EaQdVtjzXRaQGQZsCLXWaNn9x'

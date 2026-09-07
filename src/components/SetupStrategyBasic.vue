@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { getTokenPrices } from '@/helpers/covalent';
 import { call, clone } from '@snapshot-labs/snapshot.js/src/utils';
-import { JsonRpcProvider } from '@ethersproject/providers';
-import { ERC20ABI } from '@/helpers/constants';
+import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { ERC20ABI, PROVIDER_OPTIONS } from '@/helpers/constants';
 import { isAddress } from '@ethersproject/address';
 import { shorten } from '@/helpers/utils';
 
@@ -82,9 +82,7 @@ async function getTokenInfo() {
     isTokenLoading.value = false;
   } else {
     try {
-      const provider = new JsonRpcProvider(
-        `${import.meta.env.VITE_BROVIDER_URL}/${network.value}`
-      );
+      const provider = getProvider(network.value, PROVIDER_OPTIONS);
       const tokenInfo = await Promise.all([
         call(provider, ERC20ABI, [contract.value, 'name', []]),
         call(provider, ERC20ABI, [contract.value, 'symbol', []]),
