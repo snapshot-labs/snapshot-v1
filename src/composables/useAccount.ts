@@ -1,5 +1,5 @@
 import snapshot from '@snapshot-labs/snapshot.js';
-import { ERC20ABI } from '@/helpers/constants';
+import { ERC20ABI, PROVIDER_OPTIONS } from '@/helpers/constants';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
 
 async function getERC20Account(
@@ -31,8 +31,7 @@ export function useAccount() {
   ) {
     account.value = {};
     updatingAccount.value = true;
-    const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
-    const provider = getProvider(chainId, { broviderUrl });
+    const provider = getProvider(chainId, PROVIDER_OPTIONS);
 
     try {
       account.value = await getERC20Account(

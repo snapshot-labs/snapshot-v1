@@ -11,6 +11,7 @@ import {
 } from '@ethersproject/bignumber/lib/bignumber';
 import { isBytesLike, isHexString } from '@ethersproject/bytes';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import { OPTIMISTIC_GOVERNOR_ABI } from '../constants';
 import {
   BaseTransaction,
@@ -39,7 +40,7 @@ export const mustBeEthereumAddress = memoize((address: string) => {
  */
 export const mustBeEthereumContractAddress = memoize(
   async (network: string, address: string) => {
-    const provider = getProvider(network) as JsonRpcProvider;
+    const provider = getProvider(network, PROVIDER_OPTIONS) as JsonRpcProvider;
     const contractCode = await provider.getCode(address);
 
     return (
@@ -71,7 +72,10 @@ export async function validateModuleAddress(
   moduleAddress: string
 ): Promise<boolean> {
   if (!isAddress(moduleAddress)) return false;
-  const provider: StaticJsonRpcProvider = getProvider(network);
+  const provider: StaticJsonRpcProvider = getProvider(
+    network,
+    PROVIDER_OPTIONS
+  );
   const moduleContract = new Contract(
     moduleAddress,
     OPTIMISTIC_GOVERNOR_ABI,
@@ -147,7 +151,7 @@ export async function isContractAddress(
   address: string,
   network: string
 ): Promise<boolean> {
-  const provider = getProvider(network);
+  const provider = getProvider(network, PROVIDER_OPTIONS);
   const code = await provider.getCode(address);
   return code !== '0x' && code !== '0x0';
 }

@@ -5,6 +5,7 @@ import memoize from 'lodash/memoize';
 
 import { SafeExecutionData, SafeTransaction } from '@/helpers/interfaces';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import SafeSnapPlugin, { MULTI_SEND_VERSION } from '../index';
 import { createMultiSendTx, getMultiSend } from './multiSend';
 
@@ -16,8 +17,7 @@ export const mustBeEthereumAddress = memoize((address: string) => {
 
 export const mustBeEthereumContractAddress = memoize(
   async (network: string, address: string) => {
-    const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
-    const provider = getProvider(network, { broviderUrl }) as JsonRpcProvider;
+    const provider = getProvider(network, PROVIDER_OPTIONS) as JsonRpcProvider;
     const contractCode = await provider.getCode(address);
 
     return (

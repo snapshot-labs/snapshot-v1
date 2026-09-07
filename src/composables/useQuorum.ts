@@ -1,5 +1,6 @@
 import { ExtendedSpace, Proposal, Results } from '@/helpers/interfaces';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import { BigNumber } from '@ethersproject/bignumber';
 import { call } from '@snapshot-labs/snapshot.js/src/utils';
 import { getSnapshots } from '@snapshot-labs/snapshot.js/src/utils/blockfinder';
@@ -9,8 +10,6 @@ interface QuorumProps {
   proposal: Proposal;
   results: Results;
 }
-
-const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
 
 export function useQuorum(props: QuorumProps) {
   const loading = ref(false);
@@ -82,7 +81,7 @@ export function useQuorum(props: QuorumProps) {
         );
         const requests: Promise<any>[] = strategies.map(s =>
           call(
-            getProvider(s.network, { broviderUrl }),
+            getProvider(s.network, PROVIDER_OPTIONS),
             [s.methodABI],
             [s.address, s.methodABI.name],
             { blockTag: blocks[s.network] }
@@ -108,7 +107,7 @@ export function useQuorum(props: QuorumProps) {
   async function loadQuorum() {
     loading.value = true;
     quorum.value = await getQuorum(
-      getProvider(props.space.network, { broviderUrl }),
+      getProvider(props.space.network, PROVIDER_OPTIONS),
       props.space.plugins.quorum,
       props.proposal.snapshot
     );

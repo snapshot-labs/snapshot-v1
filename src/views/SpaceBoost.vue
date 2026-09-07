@@ -10,7 +10,7 @@ import {
   BOOST_VERSION,
   getFees
 } from '@/helpers/boost';
-import { TWO_WEEKS, ONE_DAY } from '@/helpers/constants';
+import { TWO_WEEKS, ONE_DAY, PROVIDER_OPTIONS } from '@/helpers/constants';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
 import { getProposal } from '@/helpers/snapshot';
 import { Token } from '@/helpers/alchemy';
@@ -380,7 +380,7 @@ function setErrorStatus(error: string) {
 async function loadFees() {
   try {
     loadingFees.value = true;
-    const provider = getProvider(form.value.network);
+    const provider = getProvider(form.value.network, PROVIDER_OPTIONS);
     const response = await getFees(provider, form.value.network);
     ethFee.value = formatEther(response.ethFee);
     tokenFeePercent.value = (Number(response.tokenFeePercent) / 100).toString();

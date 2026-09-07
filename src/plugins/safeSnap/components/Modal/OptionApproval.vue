@@ -2,6 +2,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { getEnsTextRecord } from '@snapshot-labs/snapshot.js/src/utils';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 
 export default {
   props: [
@@ -62,7 +63,7 @@ export default {
             this.spaceId,
             'daorequirements',
             '1',
-            { broviderUrl: import.meta.env.VITE_BROVIDER_URL }
+            PROVIDER_OPTIONS
           );
         } catch (err) {
           console.warn(

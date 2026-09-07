@@ -1,4 +1,5 @@
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import { subgraphRequest, call } from '@snapshot-labs/snapshot.js/src/utils';
 import { DelegateWithPercent, ExtendedSpace } from '@/helpers/interfaces';
 import { DelegatingTo, DelegationReader } from '@/helpers/delegationV2/types';
@@ -127,8 +128,7 @@ const getBalance =
 const getDelegatingTo =
   (space: ExtendedSpace): DelegationReader['getDelegatingTo'] =>
   async (address: string): Promise<DelegatingTo> => {
-    const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
-    const provider = getProvider(space.network, { broviderUrl });
+    const provider = getProvider(space.network, PROVIDER_OPTIONS);
     const delegates = await call(
       provider,
       ['function delegates(address) view returns (address)'],

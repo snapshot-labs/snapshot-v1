@@ -8,6 +8,7 @@ import { pack } from '@ethersproject/solidity';
 import { toUtf8Bytes } from '@ethersproject/strings';
 import snapshot from '@snapshot-labs/snapshot.js';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import memoize from 'lodash/memoize';
 import detectProxyTarget from 'evm-proxy-detection';
 import {
@@ -485,7 +486,7 @@ export async function getOgProposalStateFromChain(params: {
   const { network, moduleDetails, explanation, proposalHash } = params;
   const { moduleAddress, oracleAddress } = moduleDetails;
 
-  const provider = getProvider(network);
+  const provider = getProvider(network, PROVIDER_OPTIONS);
   const latestBlock = (await provider.getBlock('latest')).number;
   const oGstartBlock = getDeployBlock({ network, name: 'OptimisticGovernor' });
   const oOStartBlock = getDeployBlock({ network, name: 'OptimisticOracleV3' });
@@ -812,7 +813,7 @@ export async function fetchImplementationAddress(
   network: string
 ): Promise<string | undefined> {
   try {
-    const provider = getProvider(network);
+    const provider = getProvider(network, PROVIDER_OPTIONS);
     const requestFunc = ({ method, params }) => provider.send(method, params);
     return (await detectProxyTarget(proxyAddress, requestFunc)) ?? undefined;
   } catch (error) {

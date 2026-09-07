@@ -1,5 +1,6 @@
 import { getBlockNumber } from '@snapshot-labs/snapshot.js/src/utils/web3';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 
 const isLoading = ref(false);
 const error = ref(false);
@@ -9,9 +10,8 @@ export function useSnapshot() {
     try {
       isLoading.value = true;
       error.value = false;
-      const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
       const currentBlock = await getBlockNumber(
-        getProvider(network, { broviderUrl })
+        getProvider(network, PROVIDER_OPTIONS)
       );
       console.log('Snapshot block number', currentBlock);
       return currentBlock - 4;

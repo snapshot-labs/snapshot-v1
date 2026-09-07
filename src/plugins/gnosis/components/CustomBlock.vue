@@ -1,6 +1,7 @@
 <script>
 import Plugin from '../index';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import { shorten } from '@/helpers/utils';
 
 export default {
@@ -26,8 +27,7 @@ export default {
   async created() {
     this.loading = true;
     const network = this.proposalConfig.network || '1';
-    const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
-    const provider = getProvider(network, { broviderUrl });
+    const provider = getProvider(network, PROVIDER_OPTIONS);
     this.baseToken = await this.plugin.getTokenInfo(
       provider,
       this.proposalConfig.baseTokenAddress

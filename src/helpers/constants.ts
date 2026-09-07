@@ -137,3 +137,8 @@ export const PROPOSAL_BODY_LIMITS = {
   default: 10000,
   turbo: 40000
 };
+
+export const PROVIDER_OPTIONS = {
+  broviderUrl: import.meta.env.VITE_BROVIDER_URL,
+  clientName: 'v1'
+};

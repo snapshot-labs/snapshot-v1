@@ -5,6 +5,7 @@ import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { getInstance } from '@snapshot-labs/lock/plugins/vue3';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 import { sleep } from '@snapshot-labs/snapshot.js/src/utils';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
 import {
   CollateralDetails,
@@ -48,7 +49,10 @@ const props = defineProps<{
 const { web3 } = useWeb3();
 const isLoading = ref(true);
 const hasConnectedWallet = computed(() => !!web3.value.account);
-const provider: StaticJsonRpcProvider = getProvider(props.network);
+const provider: StaticJsonRpcProvider = getProvider(
+  props.network,
+  PROVIDER_OPTIONS
+);
 const ogModuleDetails = ref<OGModuleDetails>();
 const oGProposalState = ref<OGProposalState>();
 const collateralDetails = ref<CollateralDetails>();

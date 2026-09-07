@@ -11,6 +11,7 @@ import { isBigNumberish } from '@ethersproject/bignumber/lib/bignumber';
 
 import snapshot from '@snapshot-labs/snapshot.js';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import {
   SafeTransaction,
   RealityOracleProposal,
@@ -46,7 +47,6 @@ export * from './utils/realityETH';
 export * from './utils/transactions';
 export * from './utils/realityModule';
 
-const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
 export default class Plugin {
   validateTransaction(transaction: SafeTransaction) {
     const addressEmptyOrValidate =
@@ -97,9 +97,10 @@ export default class Plugin {
     proposalId: string,
     txHashes: string[]
   ): Promise<Omit<RealityOracleProposal, 'transactions'>> {
-    const provider: StaticJsonRpcProvider = getProvider(network, {
-      broviderUrl
-    });
+    const provider: StaticJsonRpcProvider = getProvider(
+      network,
+      PROVIDER_OPTIONS
+    );
     const question = await buildQuestion(proposalId, txHashes);
     const questionHash = solidityKeccak256(['string'], [question]);
 
@@ -138,18 +139,20 @@ export default class Plugin {
   }
 
   async getModuleDetailsReality(network: string, moduleAddress: string) {
-    const provider: StaticJsonRpcProvider = getProvider(network, {
-      broviderUrl
-    });
+    const provider: StaticJsonRpcProvider = getProvider(
+      network,
+      PROVIDER_OPTIONS
+    );
     return getModuleDetailsReality(provider, network, moduleAddress);
   }
 
   async validateUmaModule(network: string, umaAddress: string) {
     if (!isAddress(umaAddress)) return 'reality';
 
-    const provider: StaticJsonRpcProvider = getProvider(network, {
-      broviderUrl
-    });
+    const provider: StaticJsonRpcProvider = getProvider(
+      network,
+      PROVIDER_OPTIONS
+    );
     const moduleContract = new Contract(umaAddress, UMA_MODULE_ABI, provider);
 
     return moduleContract
@@ -212,9 +215,10 @@ export default class Plugin {
     explanation: string,
     transactions: any
   ) {
-    const provider: StaticJsonRpcProvider = getProvider(network, {
-      broviderUrl
-    });
+    const provider: StaticJsonRpcProvider = getProvider(
+      network,
+      PROVIDER_OPTIONS
+    );
     try {
       // try optimized calls, which use the graph over web3 event queries
       return await getModuleDetailsUmaGql(
@@ -283,9 +287,10 @@ export default class Plugin {
     block: string
   ) {
     const contract = new Contract(oracleAddress, ORACLE_ABI, web3);
-    const provider: StaticJsonRpcProvider = getProvider(network, {
-      broviderUrl
-    });
+    const provider: StaticJsonRpcProvider = getProvider(
+      network,
+      PROVIDER_OPTIONS
+    );
     const account = (await web3.listAccounts())[0];
 
     const [[userBalance], [bestAnswer], [historyHash], [isFinalized]] =

@@ -7,6 +7,7 @@ import {
   getEnsOwner,
   getSpaceController
 } from '@snapshot-labs/snapshot.js/src/utils';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 
 const spaceControllerInput = ref('');
 const modalWrongNetworkOpen = ref(false);
@@ -16,7 +17,6 @@ const pendingENSRecord = ref(false);
 const ensOwner = ref<string | null>(null);
 const spaceController = ref<string | null>(null);
 const defaultNetwork = import.meta.env.VITE_DEFAULT_NETWORK;
-const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
 
 export function useSpaceController() {
   const { web3, web3Account } = useWeb3();
@@ -80,9 +80,11 @@ export function useSpaceController() {
   async function loadEnsOwner() {
     ensOwner.value = null;
     try {
-      ensOwner.value = await getEnsOwner(ensAddress.value, defaultNetwork, {
-        broviderUrl
-      });
+      ensOwner.value = await getEnsOwner(
+        ensAddress.value,
+        defaultNetwork,
+        PROVIDER_OPTIONS
+      );
     } catch (e) {
       notify(['red', t('notify.somethingWentWrong')]);
       console.log(e);
@@ -95,7 +97,7 @@ export function useSpaceController() {
       spaceController.value = await getSpaceController(
         ensAddress.value,
         defaultNetwork,
-        { broviderUrl }
+        PROVIDER_OPTIONS
       );
     } catch (e) {
       notify(['red', t('notify.somethingWentWrong')]);

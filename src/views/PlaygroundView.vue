@@ -2,6 +2,7 @@
 import mapKeys from 'lodash/fp/mapKeys';
 import { getAddress } from '@ethersproject/address';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import { getBlockNumber } from '@snapshot-labs/snapshot.js/src/utils/web3';
 import { getScores } from '@snapshot-labs/snapshot.js/src/utils';
 import { decodeJson, encodeJson } from '@/helpers/b64';
@@ -124,8 +125,7 @@ async function loadSnapshotBlockNumber() {
     loading.value = true;
     scores.value = null;
     networkError.value = false;
-    const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
-    const provider = await getProvider(form.value.network, { broviderUrl });
+    const provider = await getProvider(form.value.network, PROVIDER_OPTIONS);
     const blockNumber = await getBlockNumber(provider);
     form.value.snapshot = blockNumber.toString();
     loading.value = false;

@@ -1,6 +1,7 @@
 import { getInstance } from '@snapshot-labs/lock/plugins/vue3';
 import { ExtendedSpace } from '@/helpers/interfaces';
 import utils from '@snapshot-labs/snapshot.js/src/utils';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import { computedAsync, useMemoize } from '@vueuse/core';
 import { Contract } from '@ethersproject/contracts';
 
@@ -8,8 +9,7 @@ const defaultNetwork = import.meta.env.VITE_DEFAULT_NETWORK;
 
 const getSafeVersion = useMemoize(
   async (networkKey: string, account: string) => {
-    const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
-    const provider = utils.getProvider(networkKey, { broviderUrl });
+    const provider = utils.getProvider(networkKey, PROVIDER_OPTIONS);
     const code = await provider.getCode(account);
 
     if (code === '0x') return undefined;

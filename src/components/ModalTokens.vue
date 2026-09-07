@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isAddress } from '@ethersproject/address';
-import { ERC20ABI } from '@/helpers/constants';
+import { ERC20ABI, PROVIDER_OPTIONS } from '@/helpers/constants';
 import { Token } from '@/helpers/alchemy';
 import snapshot from '@snapshot-labs/snapshot.js';
 
@@ -49,7 +49,7 @@ async function fetchCustomToken(address: string) {
 
   customTokenLoading.value = true;
 
-  const provider = snapshot.utils.getProvider(props.network);
+  const provider = snapshot.utils.getProvider(props.network, PROVIDER_OPTIONS);
   const tokens = [address];
 
   try {

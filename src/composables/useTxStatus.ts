@@ -1,5 +1,6 @@
 import { useStorage } from '@vueuse/core';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import { PendingTransaction } from '@/helpers/interfaces';
 
 const PENDING_TRANSACTIONS_STORAGE_KEY = 'snapshot.pendingTransactions';
@@ -53,8 +54,7 @@ export function useTxStatus() {
         if (Date.now() > tx.createdAt + 1000 * 60)
           return removePendingTransaction(tx.id);
         try {
-          const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
-          const provider = getProvider(tx.network, { broviderUrl });
+          const provider = getProvider(tx.network, PROVIDER_OPTIONS);
           await provider.waitForTransaction(tx.hash, 1, 1000 * 60 * 4);
         } finally {
           removePendingTransaction(tx.id);

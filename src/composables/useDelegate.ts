@@ -1,5 +1,6 @@
 import { useEns } from './useEns';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
+import { PROVIDER_OPTIONS } from '@/helpers/constants';
 import { contractAddress } from '@/helpers/delegation';
 import { formatBytes32String } from '@ethersproject/strings';
 import {
@@ -38,8 +39,7 @@ export function useDelegate() {
       let ethAddress = address;
       if (validEnsTlds.includes(address.split('.').pop())) {
         const networkId = import.meta.env.VITE_DEFAULT_NETWORK;
-        const broviderUrl = import.meta.env.VITE_BROVIDER_URL;
-        const provider = getProvider(networkId, { broviderUrl });
+        const provider = getProvider(networkId, PROVIDER_OPTIONS);
         ethAddress = await provider.resolveName(address);
       }
       const tx = await sendTransaction(
