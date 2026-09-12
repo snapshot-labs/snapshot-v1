@@ -15,7 +15,7 @@ jobs:
 
     steps:
       # Checks-out repo on develop branch
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: 'master'
       # Overwrite target
