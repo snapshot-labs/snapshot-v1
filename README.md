@@ -65,6 +65,10 @@ By default your instance will connect to the hub at `https://testnet.hub.snapsho
 2. Run `docker run --name snapshot -p 8080:8080 snapshot` to run the container
 3. Go to `http://localhost:8080/#/fabien.eth` to test your code
 
+## Sponsors
+
+[XAUS](https://xaus.com)
+
 ## License
 
 Snapshot is open-sourced software licensed under the © [MIT license](LICENSE).
